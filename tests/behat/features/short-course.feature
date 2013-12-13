@@ -6,17 +6,19 @@ I want to be able to buy a course
   @api
   Scenario: An adminitrator can create a course
     Given I am logged in as a user with the "administrator" role
-    Then print last response
-    When I am on "node/add/short_course_basic"
-      And I fill in the following:
-        | Title | Test course |
-        | Body | This is a test course. |
+    When I am on "node/add/short-course-basic"
+    Then the response status code should be 200
+    When I fill in the following:
+      | title       | Test course            |
+      | Text format | plain_text             |
+      | Body        | This is a test course. |
       And I press "Save"
     Then I should see the text "Short Course Basic Test course has been created."
 
   Scenario: See a list with the courses
     Given I am on "/kortekurser"
-    Then I should see "Korte kurser"
+    Then the response status code should be 200
+      And I should see "Korte kurser"
 
   Scenario: When viewing a course the prices are readily available for all room types
     Given I am on "/kortekurser"
